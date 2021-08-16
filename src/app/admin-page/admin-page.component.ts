@@ -20,11 +20,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-admin-page',
+  templateUrl: './admin-page.component.html',
+  styleUrls: ['./admin-page.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminPageComponent implements OnInit {
   displayedColumns: string[] = ['name', 'weight', 'symbol', 'position'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   data: PeriodicElement[] = ELEMENT_DATA;
@@ -32,13 +32,11 @@ export class AdminComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.columnsToDisplay);
   }
 
   addColumn() {
     const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
     this.columnsToDisplay.push(this.displayedColumns[randomColumn]);
   }
-
 
 }

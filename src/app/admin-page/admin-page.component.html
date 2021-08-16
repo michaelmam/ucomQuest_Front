@@ -1,5 +1,5 @@
 <button mat-raised-button (click)="addColumn()"> Add column </button>
-
+<app-new-game></app-new-game>
 <table mat-table [dataSource]="data" class="mat-elevation-z8">
   <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
     <th mat-header-cell *matHeaderCellDef> {{column}} </th>

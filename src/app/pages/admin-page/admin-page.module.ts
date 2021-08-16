@@ -20,6 +20,9 @@ import { LocationDialogComponent } from './location/location-dialog/location-dia
 import { NewLocationComponent } from './location/new-location/new-location.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {MatSelectModule} from "@angular/material/select";
+import { UserComponent } from './user/user.component';
+import { UserDialogComponent } from './user/user-dialog/user-dialog.component';
+import { NewUserComponent } from './user/new-user/new-user.component';
 @NgModule({
   declarations: [
     NewGameComponent,
@@ -28,7 +31,10 @@ import {MatSelectModule} from "@angular/material/select";
     AdminPageComponent,
     LocationComponent,
     LocationDialogComponent,
-    NewLocationComponent
+    NewLocationComponent,
+    UserComponent,
+    UserDialogComponent,
+    NewUserComponent
   ],
   exports: [
     NewGameComponent,

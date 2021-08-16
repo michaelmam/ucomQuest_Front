@@ -1,0 +1,13 @@
+<form class="content" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field  appearance="outline">
+    <mat-label>Code</mat-label>
+    <input matInput placeholder="Code" formControlName="code" required>
+  </mat-form-field>
+  <mat-form-field  appearance="outline">
+    <mat-select formControlName="role">
+      <mat-option value="player">Player</mat-option>
+      <mat-option value="admin">Admin</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
+</form>

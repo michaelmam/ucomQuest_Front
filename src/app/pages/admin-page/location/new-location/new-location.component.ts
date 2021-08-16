@@ -12,6 +12,7 @@ export class NewLocationComponent implements OnInit {
   @Output() newGame = new EventEmitter();
   form = new FormGroup({
     name: new FormControl("", Validators.required),
+    location: new FormControl("", Validators.required),
   });
 
   constructor() { }

@@ -11,6 +11,7 @@ export interface GameProps {
   description: number;
   fullDescription: number;
   point: number;
+  location?: string;
 }
 
 @Component({
@@ -25,6 +26,7 @@ export class GameComponent implements OnInit {
     'description',
     'fullDescription',
     'point',
+    // 'location',
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();

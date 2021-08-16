@@ -35,6 +35,7 @@ export class LocationDialogComponent implements OnInit {
     games: [],
     locationGames: [],
     name: '',
+    location: ''
   };
   gamesData: GameProps[] = [];
   dataSource = new MatTableDataSource(this.gamesData);
@@ -47,6 +48,7 @@ export class LocationDialogComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.action === 'add') {
       this.location = JSON.parse(JSON.stringify(this.data.elem))
+      this.location.games = this.location.locationGames.map(({_id}) => _id)
       this.gamesData = this.location.locationGames || []
       this.dataSource = new MatTableDataSource(this.gamesData);
       this.gameService.getGames().subscribe((data: GameProps[]) => {

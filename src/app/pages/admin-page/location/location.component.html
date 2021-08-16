@@ -9,7 +9,7 @@
         </button>
       </span>
       <span *ngIf="column === 'Game count'">
-        {{element.games.length}}
+        {{element.games ? element.games.length : 0}}
       </span>
       <span *ngIf="column === 'actions'">
         <button mat-fab (click)="delete(element)">

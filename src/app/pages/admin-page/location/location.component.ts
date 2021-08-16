@@ -10,6 +10,7 @@ export interface LocationProps {
   games: string[];
   locationGames: GameProps[];
   name: string;
+  location: string;
 }
 
 @Component({
@@ -22,6 +23,7 @@ export class LocationComponent implements OnInit {
     'add Game',
     'name',
     'Game count',
+    'location',
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -39,6 +41,7 @@ export class LocationComponent implements OnInit {
   getLocations() {
     this.locationService.getLocations().subscribe(data => {
       if (data) {
+        console.log(data);
         this.locationsData = data
         this.dataSource = new MatTableDataSource(this.locationsData);
       }

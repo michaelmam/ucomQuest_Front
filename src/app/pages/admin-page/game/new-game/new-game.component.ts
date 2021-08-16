@@ -13,6 +13,7 @@ export class NewGameComponent implements OnInit {
     description: new FormControl("", Validators.required),
     fullDescription: new FormControl("", Validators.required),
     point: new FormControl(0, Validators.required),
+    location: new FormControl(''),
   });
 
   constructor() { }

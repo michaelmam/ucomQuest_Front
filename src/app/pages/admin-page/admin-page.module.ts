@@ -18,6 +18,8 @@ import {AdminPageComponent} from "./admin-page.component";
 import { LocationComponent } from './location/location.component';
 import { LocationDialogComponent } from './location/location-dialog/location-dialog.component';
 import { NewLocationComponent } from './location/new-location/new-location.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import {MatSelectModule} from "@angular/material/select";
 @NgModule({
   declarations: [
     NewGameComponent,
@@ -33,6 +35,7 @@ import { NewLocationComponent } from './location/new-location/new-location.compo
     GameComponent
   ],
   imports: [
+    NgxMatSelectSearchModule,
     CommonModule,
     AdminPageRoutingModule,
     ReactiveFormsModule,
@@ -44,7 +47,8 @@ import { NewLocationComponent } from './location/new-location/new-location.compo
     MatSnackBarModule,
     MatDialogModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ]
 })
 export class AdminPageModule { }

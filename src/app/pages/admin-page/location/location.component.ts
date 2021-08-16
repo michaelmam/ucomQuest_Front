@@ -4,9 +4,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {LocationDialogComponent} from "./location-dialog/location-dialog.component";
 import {LocationService} from "../../../shared/service/location.service";
+import { GameProps } from '../game/game.component';
 export interface LocationProps {
   _id: string;
   games: string[];
+  locationGames: GameProps[];
   name: string;
 }
 
@@ -81,8 +83,24 @@ export class LocationComponent implements OnInit {
   addGame(location: LocationProps) {
     const dialogRef = this.dialog.open(LocationDialogComponent, {
       data: {
+        width: '800px',
         action: 'add',
         elem: location
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.locationService.addGameToLocation(result).subscribe(data => {
+          if(data) {
+            this.locationsData = this.locationsData.map((elem) => {
+              if (elem._id === result._id) {
+                return result
+              }
+              return elem
+            })
+            this.dataSource = new MatTableDataSource(this.locationsData);
+          }
+        })
       }
     });
   }

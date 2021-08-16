@@ -19,4 +19,8 @@ export class LocationService {
   removeLocation(id: string) {
     return this.apiService.delete('location', id)
   }
+
+  addGameToLocation(data: any) {
+    return this.apiService.post('location/addGameToLocation', data)
+  }
 }

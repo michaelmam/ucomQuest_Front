@@ -8,6 +8,9 @@
           <mat-icon>add</mat-icon>
         </button>
       </span>
+      <span *ngIf="column === 'Game count'">
+        {{element.games.length}}
+      </span>
       <span *ngIf="column === 'actions'">
         <button mat-fab (click)="delete(element)">
           <mat-icon>delete</mat-icon>

@@ -21,6 +21,7 @@ export class LocationComponent implements OnInit {
   displayedColumns: string[] = [
     'add Game',
     'name',
+    'Game count',
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();

@@ -1,0 +1,50 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { AdminPageRoutingModule } from './admin-page-routing.module';
+import { NewGameComponent } from './game/new-game/new-game.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { MatInputModule } from '@angular/material/input';
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {HttpClientModule} from "@angular/common/http";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { GameDialogComponent } from './game/game-dialog/game-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { GameComponent } from './game/game.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatTableModule} from "@angular/material/table";
+import {AdminPageComponent} from "./admin-page.component";
+import { LocationComponent } from './location/location.component';
+import { LocationDialogComponent } from './location/location-dialog/location-dialog.component';
+import { NewLocationComponent } from './location/new-location/new-location.component';
+@NgModule({
+  declarations: [
+    NewGameComponent,
+    GameDialogComponent,
+    GameComponent,
+    AdminPageComponent,
+    LocationComponent,
+    LocationDialogComponent,
+    NewLocationComponent
+  ],
+  exports: [
+    NewGameComponent,
+    GameComponent
+  ],
+  imports: [
+    CommonModule,
+    AdminPageRoutingModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatIconModule,
+    MatTableModule
+  ]
+})
+export class AdminPageModule { }

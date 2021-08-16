@@ -1,0 +1,7 @@
+<form class="content" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field  appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" formControlName="name" required>
+  </mat-form-field>
+  <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
+</form>

@@ -1,32 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-
+import {GameProps} from "../game.component";
 @Component({
   selector: 'app-new-game',
   templateUrl: './new-game.component.html',
   styleUrls: ['./new-game.component.css']
 })
 export class NewGameComponent implements OnInit {
-  a = [1,2,3]
+  @Output() newGame = new EventEmitter();
   form = new FormGroup({
     name: new FormControl("", Validators.required),
     description: new FormControl("", Validators.required),
     fullDescription: new FormControl("", Validators.required),
-    point: new FormControl("", Validators.required),
+    point: new FormControl(0, Validators.required),
   });
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.form);
-    for (const [key, value] of Object.entries(this.form.controls)) {
-      console.log(`${key}: ${value}`);
-    }
-
   }
 
   onSubmit() {
-    console.log("reactive form submitted");
-    console.log(this.form);
+    this.newGame.emit(this.form.value as GameProps)
+    this.form.reset({
+      onlySelf: true
+    })
   }
 }

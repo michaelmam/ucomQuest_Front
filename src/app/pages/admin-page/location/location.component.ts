@@ -106,6 +106,9 @@ export class LocationComponent implements OnInit {
               return elem
             })
             this.dataSource = new MatTableDataSource(this.locationsData);
+            this.snackBar.open(`updated ${location.name}`, 'ok', {
+              duration: 1000,
+            })
           }
         })
       }

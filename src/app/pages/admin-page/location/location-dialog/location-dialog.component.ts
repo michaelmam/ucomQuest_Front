@@ -20,10 +20,9 @@ export class LocationDialogComponent implements OnInit {
   public gameMultiFilterCtrl: FormControl = new FormControl();
   protected _onDestroy = new Subject<void>();
   public filteredGamesMulti: ReplaySubject<GameProps[]> = new ReplaySubject<GameProps[]>(1);
-  public locationMultiCtrl: FormControl = new FormControl('', Validators.required);
   form = new FormGroup({
     game: new FormControl("", Validators.required),
-    location: new FormControl("", Validators.required),
+    location: new FormControl(""),
   });
   displayedColumns: string[] = [
     'name',

@@ -23,4 +23,8 @@ export class LocationService {
   addGameToLocation(data: any) {
     return this.apiService.post('location/addGameToLocation', data)
   }
+  openLocationInMap(location: string) {
+    window.open(`http://maps.google.com/maps?daddr=${location.replace(', ', ',')}`, "_blank");
+  }
 }
+

@@ -7,7 +7,10 @@ import {LocationService} from "../../../shared/service/location.service";
 import { GameProps } from '../game/game.component';
 export interface LocationProps {
   _id: string;
-  games: string[];
+  games: {
+    gameId: string,
+    location: string,
+  }[];
   locationGames: GameProps[];
   name: string;
   location: string;
@@ -23,7 +26,7 @@ export class LocationComponent implements OnInit {
     'add Game',
     'name',
     'Game count',
-    'location',
+    'location in map',
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -107,5 +110,8 @@ export class LocationComponent implements OnInit {
         })
       }
     });
+  }
+  openLocation(location: LocationProps) {
+    location.location && this.locationService.openLocationInMap(location.location)
   }
 }

@@ -8,6 +8,11 @@
           <mat-icon>add</mat-icon>
         </button>
       </span>
+      <span *ngIf="column === 'location in map'">
+        <button mat-raised-button (click)="openLocation(element)">
+          {{element.location}}
+        </button>
+      </span>
       <span *ngIf="column === 'Game count'">
         {{element.games ? element.games.length : 0}}
       </span>

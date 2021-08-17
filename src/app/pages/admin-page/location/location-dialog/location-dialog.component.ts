@@ -1,14 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ReplaySubject, Subject} from "rxjs";
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { GameProps } from '../../game/game.component';
 import {takeUntil} from "rxjs/operators";
 import { GameService } from 'src/app/shared/service/game.service';
 import {MatTableDataSource} from "@angular/material/table";
-import {LocationService} from "../../../../shared/service/location.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {LocationProps} from "../location.component";
+import { LocationService } from 'src/app/shared/service/location.service';
 
 @Component({
   selector: 'app-location-dialog',
@@ -22,11 +21,16 @@ export class LocationDialogComponent implements OnInit {
   protected _onDestroy = new Subject<void>();
   public filteredGamesMulti: ReplaySubject<GameProps[]> = new ReplaySubject<GameProps[]>(1);
   public locationMultiCtrl: FormControl = new FormControl('', Validators.required);
+  form = new FormGroup({
+    game: new FormControl("", Validators.required),
+    location: new FormControl("", Validators.required),
+  });
   displayedColumns: string[] = [
     'name',
     'description',
     'fullDescription',
     'point',
+    'game location',
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -43,12 +47,12 @@ export class LocationDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<LocationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private gameService: GameService) {}
+    private gameService: GameService,
+  private locationService: LocationService) {}
 
   ngOnInit(): void {
     if (this.data.action === 'add') {
-      this.location = JSON.parse(JSON.stringify(this.data.elem))
-      this.location.games = this.location.locationGames.map(({_id}) => _id)
+      this.location = {...this.location, ...JSON.parse(JSON.stringify(this.data.elem))}
       this.gamesData = this.location.locationGames || []
       this.dataSource = new MatTableDataSource(this.gamesData);
       this.gameService.getGames().subscribe((data: GameProps[]) => {
@@ -65,7 +69,7 @@ export class LocationDialogComponent implements OnInit {
     }
   }
   gamesFilter() {
-    this.games = this.allGames.filter(({_id}) => !this.location.games.includes(_id));
+    this.games = this.allGames.filter(({_id}) => !this.location.games.find(({gameId}) => gameId === _id));
     this.filteredGamesMulti.next(this.games.slice());
   }
   protected filterGamesMulti() {
@@ -85,20 +89,26 @@ export class LocationDialogComponent implements OnInit {
   }
 
   add() {
-    if (this.locationMultiCtrl.valid) {
-      this.gamesData.unshift(this.locationMultiCtrl.value)
+    if (this.form.valid) {
+      this.gamesData.unshift({...this.form.value.game, location: this.form.value.location})
       this.location.locationGames = this.gamesData;
       this.dataSource = new MatTableDataSource(this.gamesData);
-      this.location.games.unshift(this.locationMultiCtrl.value._id);
+      this.location.games.unshift({
+        gameId: this.form.value.game._id,
+        location: this.form.value.location});
       this.gamesFilter()
     }
   }
 
   delete(element: GameProps) {
     this.gamesData = this.gamesData.filter(({_id}) => _id !== element._id);
-    this.location.games = this.location.games.filter(id => id !== element._id);
+    this.location.games = this.location.games.filter(elem => elem.gameId !== element._id);
     this.location.locationGames = this.gamesData;
     this.dataSource = new MatTableDataSource(this.gamesData);
     this.gamesFilter()
+  }
+
+  openLocation(game: GameProps) {
+    game.location && this.locationService.openLocationInMap(game.location)
   }
 }

@@ -9,5 +9,17 @@
       <mat-option value="admin">Admin</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field  appearance="outline">
+    <mat-select placeholder="admin" formControlName="admin">
+      <mat-option>__</mat-option>
+      <mat-option *ngFor="let admin of admins" [value]="{adminId: admin._id, chatTo: admin.id}">{{admin.first_name}} _ {{admin.code}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field  appearance="outline">
+    <mat-select placeholder="location" formControlName="playingLocationId">
+      <mat-option>__</mat-option>
+      <mat-option *ngFor="let location of locations" [value]="location._id">{{location.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
 </form>

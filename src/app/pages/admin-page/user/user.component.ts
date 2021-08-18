@@ -15,6 +15,7 @@ export interface UserProps {
   role: 'player' | 'admin';
   phone_number?: number
   chatTo: string;
+  adminId?: string;
 }
 @Component({
   selector: 'app-user',
@@ -29,6 +30,8 @@ export class UserComponent implements OnInit {
     'first_name',
     'role',
     'last name',
+    'admin',
+    'location',
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -47,6 +50,7 @@ export class UserComponent implements OnInit {
     this.userService.getUsers().subscribe(data => {
       if (data) {
         this.usersData = data
+        console.log(data);
         this.dataSource = new MatTableDataSource(this.usersData);
       }
     })

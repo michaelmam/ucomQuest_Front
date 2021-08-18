@@ -15,6 +15,10 @@ export class UserService {
     return this.apiService.get('user')
   }
 
+  getAdminUsers() {
+    return this.apiService.get('user/admins')
+  }
+
   removeUser(id: string) {
     return this.apiService.delete('user', id)
   }

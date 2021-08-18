@@ -11,6 +11,12 @@
       <span *ngIf="column === 'last name'">
         {{element.last_name || element.username}}
       </span>
+      <span *ngIf="column === 'admin'">
+        {{element?.adminData?.code}}: {{element?.adminData?.first_name}}
+      </span>
+      <span *ngIf="column === 'location'">
+        {{element?.locationData?.name}}
+      </span>
       {{element[column]}}
     </td>
   </ng-container>

@@ -25,6 +25,8 @@ export class LocationDialogComponent implements OnInit {
     location: new FormControl(""),
   });
   displayedColumns: string[] = [
+    'gameCode',
+    'gameType',
     'name',
     'description',
     'fullDescription',

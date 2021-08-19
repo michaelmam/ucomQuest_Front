@@ -16,7 +16,7 @@
               [formControl]="gameMultiFilterCtrl"></ngx-mat-select-search>
           </mat-option>
           <mat-option *ngFor="let game of filteredGamesMulti | async" [value]="game">
-            {{game.name}}
+            {{game.gameType}}:  {{game.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>

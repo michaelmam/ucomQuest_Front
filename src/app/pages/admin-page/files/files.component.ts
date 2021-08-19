@@ -23,6 +23,7 @@ export class FilesComponent implements OnInit, AfterViewInit {
     'userTeamName',
     'userCode',
     'created At',
+    'fileType',
     'file',
     'download',
   ];

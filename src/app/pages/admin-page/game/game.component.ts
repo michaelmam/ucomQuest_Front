@@ -8,6 +8,7 @@ import {GameDialogComponent} from "./game-dialog/game-dialog.component";
 export interface GameProps {
   _id: string;
   name: string;
+  gameType: string;
   description: number;
   fullDescription: number;
   point: number;

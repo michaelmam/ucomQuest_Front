@@ -4,6 +4,7 @@ import { GameComponent } from './game/game.component';
 import {AdminPageComponent} from "./admin-page.component";
 import { LocationComponent } from './location/location.component';
 import { UserComponent } from './user/user.component';
+import { FilesComponent } from './files/files.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
       },
       {
         path: 'user', component: UserComponent,
+      },
+      {
+        path: 'file', component: FilesComponent,
       },
     ]
   },

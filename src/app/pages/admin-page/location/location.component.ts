@@ -25,6 +25,7 @@ export class LocationComponent implements OnInit {
   displayedColumns: string[] = [
     'add Game',
     'name',
+    'startDescription',
     'Game count',
     'location in map',
     'actions'

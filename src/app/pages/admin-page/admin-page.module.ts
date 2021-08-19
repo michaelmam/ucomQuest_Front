@@ -23,6 +23,9 @@ import {MatSelectModule} from "@angular/material/select";
 import { UserComponent } from './user/user.component';
 import { UserDialogComponent } from './user/user-dialog/user-dialog.component';
 import { NewUserComponent } from './user/new-user/new-user.component';
+import { FilesComponent } from './files/files.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 @NgModule({
   declarations: [
     NewGameComponent,
@@ -34,7 +37,8 @@ import { NewUserComponent } from './user/new-user/new-user.component';
     NewLocationComponent,
     UserComponent,
     UserDialogComponent,
-    NewUserComponent
+    NewUserComponent,
+    FilesComponent
   ],
   exports: [
     NewGameComponent,
@@ -54,7 +58,9 @@ import { NewUserComponent } from './user/new-user/new-user.component';
     MatDialogModule,
     MatIconModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class AdminPageModule { }

@@ -8,9 +8,7 @@ export interface UserProps {
   _id: string;
   name: string;
   code: string;
-  first_name: string;
-  last_name?: string;
-  username?: string;
+  teamName: string;
   id: string;
   role: 'player' | 'admin';
   phone_number?: number
@@ -27,9 +25,9 @@ export class UserComponent implements OnInit {
   displayedColumns: string[] = [
     // 'index',
     'code',
-    'first_name',
+    'verificationCode',
+    'teamName',
     'role',
-    'last name',
     'admin',
     'location',
     'actions'

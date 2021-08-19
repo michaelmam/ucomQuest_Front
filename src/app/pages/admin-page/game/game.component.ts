@@ -22,6 +22,8 @@ export interface GameProps {
 export class GameComponent implements OnInit {
   displayedColumns: string[] = [
     // 'index',
+    'gameCode',
+    'gameType',
     'name',
     'description',
     'fullDescription',

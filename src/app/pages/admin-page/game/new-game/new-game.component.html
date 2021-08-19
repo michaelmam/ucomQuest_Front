@@ -1,5 +1,15 @@
 <form class="content" [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field  appearance="outline">
+    <mat-label>gameCode</mat-label>
+    <input matInput placeholder="gameCode" formControlName="gameCode" required>
+  </mat-form-field>
+  <mat-form-field  appearance="outline">
+    <mat-select formControlName="gameType">
+      <mat-option value="standardGame">standardGame</mat-option>
+      <mat-option value="levelUp">levelUp</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field  appearance="outline">
     <mat-label>Name</mat-label>
     <input matInput placeholder="Name" formControlName="name" required>
   </mat-form-field>

@@ -11,6 +11,8 @@ export class NewGameComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl("", Validators.required),
     description: new FormControl("", Validators.required),
+    gameType: new FormControl("standardGame", Validators.required),
+    gameCode: new FormControl("", Validators.required),
     fullDescription: new FormControl("", Validators.required),
     point: new FormControl(0, Validators.required),
     location: new FormControl(''),

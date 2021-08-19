@@ -16,6 +16,7 @@ export class NewUserComponent implements OnInit {
   locations: LocationProps[] = []
   form = new FormGroup({
     code: new FormControl("", Validators.required),
+    verificationCode: new FormControl("", Validators.required),
     role: new FormControl("player", Validators.required),
     admin: new FormControl(),
     playingLocationId: new FormControl(),

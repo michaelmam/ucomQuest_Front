@@ -30,6 +30,7 @@ export class UserComponent implements OnInit {
     'teamName',
     'role',
     'admin',
+    'playStatus',
     'location',
     'locationSteps',
     'actions'

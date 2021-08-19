@@ -1,29 +1,52 @@
-<form class="content" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field  appearance="outline">
-    <mat-label>Code</mat-label>
-    <input matInput placeholder="Code" formControlName="code" required>
-  </mat-form-field>
-  <mat-form-field  appearance="outline">
-    <mat-label>verificationCode</mat-label>
-    <input matInput placeholder="verificationCode" formControlName="verificationCode" required>
-  </mat-form-field>
-  <mat-form-field  appearance="outline">
-    <mat-select formControlName="role">
-      <mat-option value="player">Player</mat-option>
-      <mat-option value="admin">Admin</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field  appearance="outline">
-    <mat-select placeholder="admin" formControlName="admin">
-      <mat-option>__</mat-option>
-      <mat-option *ngFor="let admin of admins" [value]="{adminId: admin._id, chatTo: admin.id}">{{admin.teamName}} _ {{admin.code}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field  appearance="outline">
-    <mat-select placeholder="location" formControlName="playingLocationId">
-      <mat-option>__</mat-option>
-      <mat-option *ngFor="let location of locations" [value]="location._id">{{location.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
-</form>
+<div class="content" >
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field  appearance="outline">
+      <mat-label>Code</mat-label>
+      <input matInput placeholder="Code" formControlName="code" required>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-label>verificationCode</mat-label>
+      <input matInput placeholder="verificationCode" formControlName="verificationCode" required>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-select formControlName="role">
+        <mat-option value="player">Player</mat-option>
+        <mat-option value="admin">Admin</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-select placeholder="admin" formControlName="admin">
+        <mat-option>__</mat-option>
+        <mat-option *ngFor="let admin of admins" [value]="{adminId: admin._id, chatTo: admin.id}">{{admin.teamName}} _ {{admin.code}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
+  </form>
+  <div>
+    <div class="example-container">
+      <h2>Locations</h2>
+      <div
+        cdkDropList
+        #locationsList="cdkDropList"
+        [cdkDropListData]="locations"
+        [cdkDropListConnectedTo]="[userPlayingLocationsList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of locations" cdkDrag>{{item.name}}</div>
+      </div>
+    </div>
+
+    <div class="example-container">
+      <h2>User Playing Locations</h2>
+      <div
+        cdkDropList
+        #userPlayingLocationsList="cdkDropList"
+        [cdkDropListData]="userPlayingLocations"
+        [cdkDropListConnectedTo]="[locationsList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of userPlayingLocations; let i = index" cdkDrag>{{i + 1}}: {{item.name}}</div>
+      </div>
+    </div>
+  </div>
+</div>

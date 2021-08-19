@@ -1,4 +1,5 @@
-<app-new-user (newUser)="addUser($event)"></app-new-user>
+<button mat-raised-button (click)="showNewUserComponent=!showNewUserComponent">create User</button>
+<app-new-user *ngIf="showNewUserComponent" (newUser)="addUser($event)"></app-new-user>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns; let i = index">
     <th mat-header-cell *matHeaderCellDef> {{column}} </th>
@@ -16,6 +17,9 @@
       </span>
       <span *ngIf="column === 'location'">
         {{element?.locationData?.name}}
+      </span>
+      <span *ngIf="column === 'locationSteps'">
+        {{element?.playingLocationStepsNames?.join(' -> ')}}
       </span>
       {{element[column]}}
     </td>

@@ -4,6 +4,7 @@ import { UserService } from 'src/app/shared/service/user.service';
 import {LocationProps} from "../../location/location.component";
 import { UserProps } from '../user.component';
 import {LocationService} from "../../../../shared/service/location.service";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-new-user',
@@ -11,6 +12,8 @@ import {LocationService} from "../../../../shared/service/location.service";
   styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent implements OnInit {
+  userPlayingLocations: LocationProps[] = [];
+
   @Output() newUser = new EventEmitter();
   admins: UserProps[] = [];
   locations: LocationProps[] = []
@@ -19,7 +22,6 @@ export class NewUserComponent implements OnInit {
     verificationCode: new FormControl("", Validators.required),
     role: new FormControl("player", Validators.required),
     admin: new FormControl(),
-    playingLocationId: new FormControl(),
   });
 
   constructor(private userService: UserService,
@@ -37,9 +39,24 @@ export class NewUserComponent implements OnInit {
       }
     })
   }
-
+  drop(event: CdkDragDrop<LocationProps[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+  }
   onSubmit() {
-    this.newUser.emit(this.form.value)
+    const playingLocationSteps = this.userPlayingLocations.map(({_id}) => _id)
+    const playingLocationStepsNames = this.userPlayingLocations.map(({name}) => name)
+    this.newUser.emit({
+      ...this.form.value,
+      playingLocationStepsNames,
+      playingLocationSteps,
+      playingLocationId: playingLocationSteps[0]})
     this.form.controls.code.reset()
   }
 }

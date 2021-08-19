@@ -21,6 +21,7 @@ export interface UserProps {
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  showNewUserComponent: boolean = false;
 
   displayedColumns: string[] = [
     // 'index',
@@ -30,6 +31,7 @@ export class UserComponent implements OnInit {
     'role',
     'admin',
     'location',
+    'locationSteps',
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -48,7 +50,6 @@ export class UserComponent implements OnInit {
     this.userService.getUsers().subscribe(data => {
       if (data) {
         this.usersData = data
-        console.log(data);
         this.dataSource = new MatTableDataSource(this.usersData);
       }
     })
@@ -91,5 +92,4 @@ export class UserComponent implements OnInit {
       }
     });
   }
-
 }

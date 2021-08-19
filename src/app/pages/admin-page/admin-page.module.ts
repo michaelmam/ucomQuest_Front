@@ -26,6 +26,7 @@ import { NewUserComponent } from './user/new-user/new-user.component';
 import { FilesComponent } from './files/files.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 @NgModule({
   declarations: [
     NewGameComponent,
@@ -60,7 +61,8 @@ import {MatSortModule} from "@angular/material/sort";
     MatTableModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    DragDropModule
   ]
 })
 export class AdminPageModule { }

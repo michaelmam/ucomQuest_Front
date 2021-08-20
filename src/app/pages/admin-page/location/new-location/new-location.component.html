@@ -11,5 +11,13 @@
     <mat-label>Location</mat-label>
     <input matInput placeholder="Location" formControlName="location" required>
   </mat-form-field>
+  <mat-form-field  appearance="outline">
+    <mat-label>Finish point</mat-label>
+    <input type="number" matInput placeholder="Finish point" formControlName="finishPoint" required>
+  </mat-form-field>
+  <mat-form-field  appearance="outline">
+    <mat-label>Finish time by minutes</mat-label>
+    <input type="number" matInput placeholder="Finish time by minutes" formControlName="finishTime" required>
+  </mat-form-field>
   <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
 </form>

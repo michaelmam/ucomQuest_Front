@@ -28,6 +28,8 @@ export class LocationComponent implements OnInit {
     'startDescription',
     'Game count',
     'location in map',
+    'finishPoint',
+    'finishTime',
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();

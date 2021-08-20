@@ -14,6 +14,8 @@ export class NewLocationComponent implements OnInit {
     name: new FormControl("", Validators.required),
     startDescription: new FormControl("", Validators.required),
     location: new FormControl("", Validators.required),
+    finishPoint: new FormControl("", Validators.required),
+    finishTime: new FormControl("", Validators.required),
   });
 
   constructor() { }

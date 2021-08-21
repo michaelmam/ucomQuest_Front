@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {UserService} from "../../../shared/service/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog"
 import {UserDialogComponent} from "./user-dialog/user-dialog.component";
+import {MatSort} from "@angular/material/sort";
 export interface UserProps {
   _id: string;
   name: string;
@@ -24,7 +25,7 @@ export interface UserProps {
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewInit {
   showNewUserComponent: boolean = false;
   editing: boolean = false;
   editUserData: UserProps = {} as UserProps;
@@ -43,6 +44,7 @@ export class UserComponent implements OnInit {
   columnsToDisplay: string[] = this.displayedColumns.slice();
   usersData: UserProps[] = [];
   dataSource = new MatTableDataSource(this.usersData);
+  @ViewChild(MatSort) sort = {} as MatSort;
 
   constructor(private userService: UserService,
               private snackBar: MatSnackBar,
@@ -60,6 +62,32 @@ export class UserComponent implements OnInit {
       }
     })
   }
+  compare(a: UserProps, b: UserProps, props: keyof UserProps, value: number) {
+
+    // props = props === 'admin' ? 'adminData.teamName' as keyof UserProps : props
+
+    // @ts-ignore
+    if ( a[props] < b[props] ){
+      return -value;
+    }
+    // @ts-ignore
+    if ( a[props] > b[props] ){
+      return value;
+    }
+    return 0;
+  }
+  ngAfterViewInit() {
+    this.sort.sortChange.subscribe((e) => {
+      let prop = e.active as keyof UserProps;
+      this.usersData.sort((a,b) => this.compare(a, b, prop, e.direction === 'asc' ? 1 : -1));
+      this.dataSource = new MatTableDataSource(this.usersData);
+    });
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 
   addUser(user: UserProps) {
    if(this.editing) {

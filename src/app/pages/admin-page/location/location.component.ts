@@ -47,7 +47,6 @@ export class LocationComponent implements OnInit {
   getLocations() {
     this.locationService.getLocations().subscribe(data => {
       if (data) {
-        console.log(data);
         this.locationsData = data
         this.dataSource = new MatTableDataSource(this.locationsData);
       }

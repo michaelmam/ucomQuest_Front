@@ -5,8 +5,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {GameDialogComponent} from "./game-dialog/game-dialog.component";
 import {MatSort} from "@angular/material/sort";
-import {merge, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {LocationProps} from "../location/location.component";
+import { LocationService } from 'src/app/shared/service/location.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 export interface GameProps {
   _id: string;
   name: string;
@@ -15,6 +16,10 @@ export interface GameProps {
   fullDescription: number;
   gameCode: string;
   point: number;
+  location: string;
+  locationId: string;
+  maxPlayerCount: number;
+  gamePlayTime: number;
 }
 const displayedColumns: string[] = [
   // 'index',
@@ -24,26 +29,36 @@ const displayedColumns: string[] = [
   'description',
   'fullDescription',
   'point',
-  // 'location',
+  'maxPlayerCount',
+  'gamePlayTime',
+  'locationName',
   'actions'
 ];
-type displayedColumnsTypes = typeof displayedColumns[number]
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class GameComponent implements OnInit, AfterViewInit {
   displayedColumns = displayedColumns
-  editGame: GameProps = {gameCode: "", _id: "", description: 0, fullDescription: 0, gameType: "", name: "", point: 0};
+  editGame: GameProps = {} as GameProps;
   columnsToDisplay: string[] = this.displayedColumns.slice();
   gamesData: GameProps[] = [];
   editing = false;
   dataSource = new MatTableDataSource(this.gamesData);
+  expandedElement: GameProps | null | undefined;
   @ViewChild(MatSort) sort = {} as MatSort;
   constructor(private gameService: GameService,
               private snackBar: MatSnackBar,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private locationService: LocationService) { }
 
   ngOnInit(): void {
     this.getGames()
@@ -139,10 +154,14 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.gamesData.unshift(this.editGame)
     this.dataSource = new MatTableDataSource(this.gamesData);
     this.editing = false;
-    this.editGame = {gameCode: "", _id: "", description: 0, fullDescription: 0, gameType: "", name: "", point: 0}
+    this.editGame = {} as GameProps
   }
 
   copy(game: GameProps) {
     this.editGame = game;
+  }
+
+  openLocation(location: LocationProps) {
+    location.location && this.locationService.openLocationInMap(location.location)
   }
 }

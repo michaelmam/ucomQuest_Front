@@ -16,6 +16,7 @@ import {AdminPageModule} from "./pages/admin-page/admin-page.module";
     AdminPageModule,
   ],
   providers: [],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

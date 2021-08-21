@@ -27,6 +27,7 @@ import { FilesComponent } from './files/files.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MaxLengthPipe} from "../../max-length.pipe";
 @NgModule({
   declarations: [
     NewGameComponent,
@@ -39,7 +40,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     UserComponent,
     UserDialogComponent,
     NewUserComponent,
-    FilesComponent
+    FilesComponent,
+    MaxLengthPipe
   ],
   exports: [
     NewGameComponent,
@@ -62,7 +64,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     MatSelectModule,
     MatPaginatorModule,
     MatSortModule,
-    DragDropModule
+    DragDropModule,
   ],
 })
 export class AdminPageModule { }

@@ -1,34 +1,53 @@
 <form class="content" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field  appearance="outline">
-    <mat-label>gameCode</mat-label>
-    <input matInput placeholder="gameCode" formControlName="gameCode" required>
-  </mat-form-field>
-  <mat-form-field  appearance="outline">
-    <mat-select formControlName="gameType">
-      <mat-option value="standardGame">standardGame</mat-option>
-      <mat-option value="levelUp">levelUp</mat-option>
+  <p>
+    <mat-form-field  appearance="outline">
+      <mat-label>gameCode</mat-label>
+      <input matInput placeholder="gameCode" formControlName="gameCode" required>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name" required>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-label>Description</mat-label>
+      <input  matInput placeholder="description" formControlName="description" required>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-label>Full Description</mat-label>
+      <textarea  matInput placeholder="fullDescription" formControlName="fullDescription" required></textarea>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-label>Game Type</mat-label>
+      <mat-select formControlName="gameType">
+        <mat-option value="standardGame">standardGame</mat-option>
+        <mat-option value="levelUp">levelUp</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+  <mat-form-field class="searchSelect">
+    <mat-label>Location Name</mat-label>
+    <mat-select formControlName="locationId" placeholder="Location Name" [multiple]="false">
+      <mat-option *ngFor="let location of locationsData" [value]="location._id">
+        {{location.name}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field  appearance="outline">
-    <mat-label>Name</mat-label>
-    <input matInput placeholder="Name" formControlName="name" required>
-  </mat-form-field>
-  <mat-form-field  appearance="outline">
-    <mat-label>Description</mat-label>
-    <input  matInput placeholder="description" formControlName="description" required>
-  </mat-form-field>
-  <mat-form-field  appearance="outline">
-    <mat-label>Full Description</mat-label>
-    <textarea  matInput placeholder="fullDescription" formControlName="fullDescription" required></textarea>
+    <mat-label>Location</mat-label>
+    <input  matInput placeholder="location" formControlName="location">
   </mat-form-field>
   <mat-form-field  appearance="outline">
     <mat-label>Point</mat-label>
     <input  matInput type="number" placeholder="point" formControlName="point" required>
   </mat-form-field>
-<!--  <mat-form-field  appearance="outline">-->
-<!--    <mat-label>Location</mat-label>-->
-<!--    <input  matInput placeholder="location" formControlName="location">-->
-<!--  </mat-form-field>-->
+  <mat-form-field  appearance="outline">
+    <mat-label>Finish time by minutes</mat-label>
+    <input type="number" matInput placeholder="Finish time by minutes" formControlName="gamePlayTime" required>
+  </mat-form-field>
+  <mat-form-field  appearance="outline">
+    <mat-label>max player count</mat-label>
+    <input type="number" matInput placeholder="max player count" formControlName="maxPlayerCount" required>
+  </mat-form-field>
   <button mat-raised-button type="button" *ngIf="editing" (click)="cancelEditingFunction()">Cancel</button>
   <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
 </form>

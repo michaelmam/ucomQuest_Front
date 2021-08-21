@@ -63,6 +63,6 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     MatPaginatorModule,
     MatSortModule,
     DragDropModule
-  ]
+  ],
 })
 export class AdminPageModule { }

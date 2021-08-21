@@ -11,8 +11,8 @@ export interface GameProps {
   gameType: string;
   description: number;
   fullDescription: number;
+  gameCode: string;
   point: number;
-  location?: string;
 }
 
 @Component({
@@ -32,8 +32,10 @@ export class GameComponent implements OnInit {
     // 'location',
     'actions'
   ];
+  editGame: GameProps = {gameCode: "", _id: "", description: 0, fullDescription: 0, gameType: "", name: "", point: 0};
   columnsToDisplay: string[] = this.displayedColumns.slice();
   gamesData: GameProps[] = [];
+  editing = false;
   dataSource = new MatTableDataSource(this.gamesData);
 
   constructor(private gameService: GameService,
@@ -54,15 +56,27 @@ export class GameComponent implements OnInit {
   }
 
   addGame(game: GameProps) {
-    this.gameService.newGame(game).subscribe(data => {
-      if (data) {
-        this.gamesData.unshift(data)
-        this.dataSource = new MatTableDataSource(this.gamesData);
-        this.snackBar.open(`created ${game.name}`, 'ok', {
-          duration: 1000,
-        })
-      }
-    })
+    if (this.editing) {
+      this.gameService.editGame(game).subscribe(data => {
+        if (data) {
+          this.gamesData.unshift(game)
+          this.dataSource = new MatTableDataSource(this.gamesData);
+          this.snackBar.open(`edited ${game.name}`, 'ok', {
+            duration: 1000,
+          })
+        }
+      })
+    } else {
+      this.gameService.newGame(game).subscribe(data => {
+        if (data) {
+          this.gamesData.unshift(data)
+          this.dataSource = new MatTableDataSource(this.gamesData);
+          this.snackBar.open(`created ${game.name}`, 'ok', {
+            duration: 1000,
+          })
+        }
+      })
+    }
   }
 
   delete(game: GameProps) {
@@ -84,5 +98,27 @@ export class GameComponent implements OnInit {
         })
       }
     });
+  }
+
+  edit(game: GameProps) {
+    if (this.editing) {
+      this.gamesData.unshift(this.editGame)
+      this.dataSource = new MatTableDataSource(this.gamesData);
+    }
+    this.editing = true;
+    this.gamesData = this.gamesData.filter(({_id}) => _id !== game._id);
+    this.dataSource = new MatTableDataSource(this.gamesData);
+    this.editGame = game;
+  }
+
+  cancelEditing() {
+    this.gamesData.unshift(this.editGame)
+    this.dataSource = new MatTableDataSource(this.gamesData);
+    this.editing = false;
+    this.editGame = {gameCode: "", _id: "", description: 0, fullDescription: 0, gameType: "", name: "", point: 0}
+  }
+
+  copy(game: GameProps) {
+    this.editGame = game;
   }
 }

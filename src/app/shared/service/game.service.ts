@@ -12,6 +12,9 @@ export class GameService {
   newGame(game: GameProps) {
     return this.apiService.post('game', game)
   }
+  editGame(game: GameProps) {
+    return this.apiService.putOnlyObject('game', game)
+  }
   getGames() {
     return this.apiService.get('game')
   }

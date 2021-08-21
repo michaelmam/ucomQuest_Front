@@ -110,6 +110,6 @@ export class LocationDialogComponent implements OnInit {
   }
 
   openLocation(game: GameProps) {
-    game.location && this.locationService.openLocationInMap(game.location)
+    // game.location && this.locationService.openLocationInMap(game.location)
   }
 }

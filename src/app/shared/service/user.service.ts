@@ -18,6 +18,9 @@ export class UserService {
   getAdminUsers() {
     return this.apiService.get('user/admins')
   }
+  updateUser(user: UserProps) {
+    return this.apiService.putOnlyObject('user', user)
+  }
 
   removeUser(id: string) {
     return this.apiService.delete('user', id)

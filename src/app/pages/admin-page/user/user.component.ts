@@ -9,6 +9,10 @@ export interface UserProps {
   name: string;
   code: string;
   teamName: string;
+  verificationCode: string;
+  playingLocationSteps: string[]
+  admin: string;
+  userPlayingLocations: string[]
   id: string;
   role: 'player' | 'admin';
   phone_number?: number
@@ -22,7 +26,8 @@ export interface UserProps {
 })
 export class UserComponent implements OnInit {
   showNewUserComponent: boolean = false;
-
+  editing: boolean = false;
+  editUserData: UserProps = {} as UserProps;
   displayedColumns: string[] = [
     // 'index',
     'code',
@@ -57,20 +62,39 @@ export class UserComponent implements OnInit {
   }
 
   addUser(user: UserProps) {
-    this.userService.newUser(user).subscribe(data => {
-      if (data && !data.error) {
-        this.usersData.unshift(data)
-        this.dataSource = new MatTableDataSource(this.usersData);
-        this.snackBar.open(`created ${user.code}`, 'ok', {
-          duration: 1000,
-        })
-      }
-      if (data.error) {
-        this.snackBar.open(data.error, 'ok', {
-          duration: 1000,
-        })
-      }
-    })
+   if(this.editing) {
+     this.userService.updateUser({...this.editUserData, ...user}).subscribe(data => {
+       if (data && !data.error) {
+         this.usersData.unshift({...this.editUserData, ...user})
+         this.dataSource = new MatTableDataSource(this.usersData);
+         this.snackBar.open(`updated ${this.editUserData.code}`, 'ok', {
+           duration: 1000,
+         })
+         this.editUserData = {} as UserProps;
+         this.editing = false;
+       }
+       if (data.error) {
+         this.snackBar.open(data.error, 'ok', {
+           duration: 1000,
+         })
+       }
+     })
+   } else {
+     this.userService.newUser(user).subscribe(data => {
+       if (data && !data.error) {
+         this.usersData.unshift(data)
+         this.dataSource = new MatTableDataSource(this.usersData);
+         this.snackBar.open(`created ${user.code}`, 'ok', {
+           duration: 1000,
+         })
+       }
+       if (data.error) {
+         this.snackBar.open(data.error, 'ok', {
+           duration: 1000,
+         })
+       }
+     })
+   }
   }
 
   delete(user: UserProps) {
@@ -92,5 +116,17 @@ export class UserComponent implements OnInit {
         })
       }
     });
+  }
+
+  editFunction(user: UserProps) {
+    this.showNewUserComponent = true;
+    this.editing = true;
+    if (this.editUserData?._id) {
+      this.usersData.unshift(this.editUserData)
+      this.dataSource = new MatTableDataSource(this.usersData);
+    }
+    this.editUserData = user;
+    this.usersData = this.usersData.filter(({_id}) => user._id !== _id)
+    this.dataSource = new MatTableDataSource(this.usersData);
   }
 }

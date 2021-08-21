@@ -20,6 +20,7 @@
         <mat-option *ngFor="let admin of admins" [value]="{adminId: admin._id, chatTo: admin.id}">{{admin.teamName}} _ {{admin.code}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <button mat-raised-button type="button" *ngIf="editing" (click)="cancelEditingFunction()">Cancel</button>
     <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
   </form>
   <div>

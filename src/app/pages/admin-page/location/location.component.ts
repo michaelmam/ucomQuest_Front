@@ -4,16 +4,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {LocationDialogComponent} from "./location-dialog/location-dialog.component";
 import {LocationService} from "../../../shared/service/location.service";
-import { GameProps } from '../game/game.component';
 export interface LocationProps {
   _id: string;
-  games: {
-    gameId: string,
-    location: string,
-  }[];
-  locationGames: GameProps[];
   name: string;
+  startDescription: string;
   location: string;
+  finishPoint: number;
+  finishTime: number;
 }
 
 @Component({
@@ -23,18 +20,19 @@ export interface LocationProps {
 })
 export class LocationComponent implements OnInit {
   displayedColumns: string[] = [
-    'add Game',
+    // 'add Game',
     'name',
     'startDescription',
-    'Game count',
     'location in map',
     'finishPoint',
     'finishTime',
     'actions'
   ];
+  editData: LocationProps = {} as LocationProps;
   columnsToDisplay: string[] = this.displayedColumns.slice();
   locationsData: LocationProps[] = [];
   dataSource = new MatTableDataSource(this.locationsData);
+  editing: boolean = false;
 
   constructor(private locationService: LocationService,
               private snackBar: MatSnackBar,
@@ -54,15 +52,27 @@ export class LocationComponent implements OnInit {
   }
 
   addLocation(location: LocationProps) {
-    this.locationService.newLocation(location).subscribe(data => {
-      if (data) {
-        this.locationsData.unshift(data)
-        this.dataSource = new MatTableDataSource(this.locationsData);
-        this.snackBar.open(`created ${location.name}`, 'ok', {
-          duration: 1000,
-        })
-      }
-    })
+    if (location._id) {
+      this.locationService.editLocation(location).subscribe(data => {
+        if (data) {
+          this.locationsData.unshift(location)
+          this.dataSource = new MatTableDataSource(this.locationsData);
+          this.snackBar.open(`created ${location.name}`, 'ok', {
+            duration: 1000,
+          })
+        }
+      })
+    } else {
+      this.locationService.newLocation(location).subscribe(data => {
+        if (data) {
+          this.locationsData.unshift(data)
+          this.dataSource = new MatTableDataSource(this.locationsData);
+          this.snackBar.open(`created ${location.name}`, 'ok', {
+            duration: 1000,
+          })
+        }
+      })
+    }
   }
 
   delete(location: LocationProps) {
@@ -118,5 +128,21 @@ export class LocationComponent implements OnInit {
   }
   openLocation(location: LocationProps) {
     location.location && this.locationService.openLocationInMap(location.location)
+  }
+
+  editLocation(element: LocationProps) {
+    this.editData = element;
+    this.locationsData = this.locationsData.filter(({_id}) => _id !== element._id );
+    this.dataSource = new MatTableDataSource(this.locationsData);
+    this.editing = true;
+  }
+
+  cancelEditing($event: any) {
+    this.editing = false;
+
+    this.locationsData.unshift(this.editData)
+    this.dataSource = new MatTableDataSource(this.locationsData);
+
+    this.editData = {} as LocationProps;
   }
 }

@@ -12,6 +12,9 @@ export class LocationService {
   newLocation(location: LocationProps) {
     return this.apiService.post('location', location)
   }
+  editLocation(location: LocationProps) {
+    return this.apiService.putOnlyObject('location', location)
+  }
   getLocations() {
     return this.apiService.get('location')
   }

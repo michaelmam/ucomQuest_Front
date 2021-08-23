@@ -35,13 +35,13 @@ export class LocationDialogComponent implements OnInit {
     'actions'
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  location: LocationProps = {
-    _id: '',
-    games: [],
-    locationGames: [],
-    name: '',
-    location: ''
-  };
+  // location: LocationProps = {
+  //   _id: '',
+  //   games: [],
+  //   locationGames: [],
+  //   name: '',
+  //   location: ''
+  // };
   gamesData: GameProps[] = [];
   dataSource = new MatTableDataSource(this.gamesData);
 
@@ -53,26 +53,26 @@ export class LocationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.action === 'add') {
-      this.location = {...this.location, ...JSON.parse(JSON.stringify(this.data.elem))}
-      this.gamesData = this.location.locationGames || []
-      this.dataSource = new MatTableDataSource(this.gamesData);
-      this.gameService.getGames().subscribe((data: GameProps[]) => {
-        if(data) {
-          this.allGames = data;
-          this.gamesFilter()
-        }
-      })
-      this.gameMultiFilterCtrl.valueChanges
-        .pipe(takeUntil(this._onDestroy))
-        .subscribe(() => {
-          this.filterGamesMulti();
-        });
+      // this.location = {...this.location, ...JSON.parse(JSON.stringify(this.data.elem))}
+      // this.gamesData = this.location.locationGames || []
+      // this.dataSource = new MatTableDataSource(this.gamesData);
+      // this.gameService.getGames().subscribe((data: GameProps[]) => {
+      //   if(data) {
+      //     this.allGames = data;
+      //     this.gamesFilter()
+      //   }
+      // })
+      // this.gameMultiFilterCtrl.valueChanges
+      //   .pipe(takeUntil(this._onDestroy))
+      //   .subscribe(() => {
+      //     this.filterGamesMulti();
+      //   });
     }
   }
-  gamesFilter() {
-    this.games = this.allGames.filter(({_id}) => !this.location.games.find(({gameId}) => gameId === _id));
-    this.filteredGamesMulti.next(this.games.slice());
-  }
+  // gamesFilter() {
+  //   this.games = this.allGames.filter(({_id}) => !this.location.games.find(({gameId}) => gameId === _id));
+  //   this.filteredGamesMulti.next(this.games.slice());
+  // }
   protected filterGamesMulti() {
     if (!this.games) {
       return;
@@ -90,23 +90,23 @@ export class LocationDialogComponent implements OnInit {
   }
 
   add() {
-    if (this.form.valid) {
-      this.gamesData.unshift({...this.form.value.game, location: this.form.value.location})
-      this.location.locationGames = this.gamesData;
-      this.dataSource = new MatTableDataSource(this.gamesData);
-      this.location.games.unshift({
-        gameId: this.form.value.game._id,
-        location: this.form.value.location});
-      this.gamesFilter()
-    }
+    // if (this.form.valid) {
+    //   this.gamesData.unshift({...this.form.value.game, location: this.form.value.location})
+    //   this.location.locationGames = this.gamesData;
+    //   this.dataSource = new MatTableDataSource(this.gamesData);
+    //   this.location.games.unshift({
+    //     gameId: this.form.value.game._id,
+    //     location: this.form.value.location});
+    //   this.gamesFilter()
+    // }
   }
 
   delete(element: GameProps) {
-    this.gamesData = this.gamesData.filter(({_id}) => _id !== element._id);
-    this.location.games = this.location.games.filter(elem => elem.gameId !== element._id);
-    this.location.locationGames = this.gamesData;
-    this.dataSource = new MatTableDataSource(this.gamesData);
-    this.gamesFilter()
+    // this.gamesData = this.gamesData.filter(({_id}) => _id !== element._id);
+    // this.location.games = this.location.games.filter(elem => elem.gameId !== element._id);
+    // this.location.locationGames = this.gamesData;
+    // this.dataSource = new MatTableDataSource(this.gamesData);
+    // this.gamesFilter()
   }
 
   openLocation(game: GameProps) {

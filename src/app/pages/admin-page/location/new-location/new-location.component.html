@@ -19,5 +19,6 @@
     <mat-label>Finish time by minutes</mat-label>
     <input type="number" matInput placeholder="Finish time by minutes" formControlName="finishTime" required>
   </mat-form-field>
+  <button mat-raised-button type="button" *ngIf="editing" (click)="cancelEditingFunction()">cancel</button>
   <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
 </form>

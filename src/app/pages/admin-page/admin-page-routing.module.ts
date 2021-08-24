@@ -12,7 +12,7 @@ const routes: Routes = [
     component: AdminPageComponent,
     children: [
       {
-        path: 'games', component: GameComponent
+        path: '', component: GameComponent
       },
       {
         path: 'location', component: LocationComponent,
@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: '/',
     pathMatch: 'full',
   }
 ];

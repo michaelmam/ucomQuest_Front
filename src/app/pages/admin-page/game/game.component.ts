@@ -34,6 +34,7 @@ const displayedColumns: string[] = [
   'maxPlayerCount',
   'gamePlayTime',
   'locationName',
+  'fileName',
   'actions'
 ];
 @Component({
@@ -83,7 +84,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSource.filter);
   }
 
 
@@ -97,7 +97,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   addGame(game: GameProps) {
-    console.log(game);
     if (this.editing) {
       this.gameService.editGame(game).subscribe(data => {
         if (data) {

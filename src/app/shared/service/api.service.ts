@@ -115,6 +115,11 @@ export class ApiService {
     return this.httpClient
       .put(`${BASE_URL}${path}/${id}`, formData, this.fileUploadOptions);
   }
+  public putOnlyFile(path: string, body: object = {}): Observable<any> {
+    const formData = this.convertJsonToFormData(body);
+    return this.httpClient
+      .put(`${BASE_URL}${path}`, formData, this.fileUploadOptions);
+  }
   public postFile(path: string, body: object = {}): Observable<any> {
     const formData = this.convertJsonToFormData(body);
     return this.httpClient.post(`${BASE_URL}${path}`, formData, this.fileUploadOptions);

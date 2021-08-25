@@ -28,17 +28,15 @@ export class NewGameComponent implements OnInit, OnChanges {
     location: new FormControl(""),
     gamePlayTime: new FormControl("", Validators.required),
     maxPlayerCount: new FormControl("", Validators.required),
-    // file: new FormControl(),
+    fileName: new FormControl(''),
   });
   locationsData: LocationProps[] = []
 
   @Input()
   requiredFileType: string | undefined;
-
   fileName = '';
   file: any;
-  constructor(private locationService: LocationService,
-              private httpClient: HttpClient) { }
+  constructor(private locationService: LocationService) { }
 
   ngOnInit(): void {
     this.getLocations()
@@ -48,12 +46,7 @@ export class NewGameComponent implements OnInit, OnChanges {
     const file:File = event.target.files[0];
 
     if (file) {
-
       this.fileName = file.name;
-
-      // const formData = new FormData();
-
-      // formData.append("uploads", file, 'file.name');
       this.file = file
     }
   }
@@ -66,7 +59,6 @@ export class NewGameComponent implements OnInit, OnChanges {
   }
   ngOnChanges() {
     if (this.editData._id) {
-
       const {
         gameCode,
         _id,
@@ -79,9 +71,9 @@ export class NewGameComponent implements OnInit, OnChanges {
         location,
         gamePlayTime,
         maxPlayerCount,
-        // file,
+        fileName,
       } = this.editData as GameProps
-      // this.file = file;
+      this.fileName = fileName || '';
       this.form.setValue({
         _id,
         gameCode,
@@ -90,8 +82,9 @@ export class NewGameComponent implements OnInit, OnChanges {
         gameType,
         name,
         point,
+        fileName: fileName || '',
         locationId,
-        location,
+        location: location || '',
         gamePlayTime,
         maxPlayerCount,
       } as GameProps)
@@ -112,6 +105,7 @@ export class NewGameComponent implements OnInit, OnChanges {
       onlySelf: true
     })
     this.file = null;
+    this.fileName = '';
   }
 
   cancelEditingFunction() {

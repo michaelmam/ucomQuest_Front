@@ -13,7 +13,7 @@ export class GameService {
     return this.apiService.postFile('game', game)
   }
   editGame(game: GameProps) {
-    return this.apiService.putOnlyObject('game', game)
+    return this.apiService.putOnlyFile('game', game)
   }
   getGames() {
     return this.apiService.get('game')

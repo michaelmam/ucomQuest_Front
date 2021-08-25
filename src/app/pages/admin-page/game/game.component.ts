@@ -9,8 +9,9 @@ import {LocationProps} from "../location/location.component";
 import { LocationService } from 'src/app/shared/service/location.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 export interface GameProps {
-  _id: string;
+  _id?: string;
   name: string;
+  fileName?: string,
   gameType: string;
   description: number;
   fullDescription: number;
@@ -20,6 +21,7 @@ export interface GameProps {
   locationId: string;
   maxPlayerCount: number;
   gamePlayTime: number;
+  file?: any;
 }
 const displayedColumns: string[] = [
   // 'index',
@@ -95,6 +97,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   addGame(game: GameProps) {
+    console.log(game);
     if (this.editing) {
       this.gameService.editGame(game).subscribe(data => {
         if (data) {
@@ -125,7 +128,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if(result && game?._id) {
         this.gameService.removeGame(game._id).subscribe(data => {
           if(data) {
             this.gamesData = this.gamesData.filter(({_id}) => _id !== game._id );

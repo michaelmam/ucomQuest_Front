@@ -4,6 +4,8 @@ import {GameProps} from "../game.component";
 import {MatTableDataSource} from "@angular/material/table";
 import {LocationService} from "../../../../shared/service/location.service";
 import {LocationProps} from "../../location/location.component";
+import {Subscription} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 @Component({
   selector: 'app-new-game',
   templateUrl: './new-game.component.html',
@@ -26,13 +28,34 @@ export class NewGameComponent implements OnInit, OnChanges {
     location: new FormControl(""),
     gamePlayTime: new FormControl("", Validators.required),
     maxPlayerCount: new FormControl("", Validators.required),
+    // file: new FormControl(),
   });
   locationsData: LocationProps[] = []
 
-  constructor(private locationService: LocationService,) { }
+  @Input()
+  requiredFileType: string | undefined;
+
+  fileName = '';
+  file: any;
+  constructor(private locationService: LocationService,
+              private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this.getLocations()
+  }
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+
+      this.fileName = file.name;
+
+      // const formData = new FormData();
+
+      // formData.append("uploads", file, 'file.name');
+      this.file = file
+    }
   }
   getLocations() {
     this.locationService.getLocations().subscribe(data => {
@@ -56,7 +79,9 @@ export class NewGameComponent implements OnInit, OnChanges {
         location,
         gamePlayTime,
         maxPlayerCount,
+        // file,
       } = this.editData as GameProps
+      // this.file = file;
       this.form.setValue({
         _id,
         gameCode,
@@ -79,10 +104,14 @@ export class NewGameComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    this.newGame.emit(this.form.value as GameProps)
+    this.newGame.emit({
+      ...this.form.value,
+      file: this.file,
+    } as GameProps)
     this.form.reset({
       onlySelf: true
     })
+    this.file = null;
   }
 
   cancelEditingFunction() {

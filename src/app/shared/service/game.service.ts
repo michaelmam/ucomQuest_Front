@@ -10,7 +10,7 @@ export class GameService {
   constructor(private apiService: ApiService) { }
 
   newGame(game: GameProps) {
-    return this.apiService.post('game', game)
+    return this.apiService.postFile('game', game)
   }
   editGame(game: GameProps) {
     return this.apiService.putOnlyObject('game', game)

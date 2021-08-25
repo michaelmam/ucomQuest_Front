@@ -4,3 +4,6 @@
 .mat-form-field {
   margin: 5px;
 }
+.file-input {
+  display: none;
+}

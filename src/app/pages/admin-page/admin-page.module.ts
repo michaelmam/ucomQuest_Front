@@ -28,6 +28,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MaxLengthPipe} from "../../max-length.pipe";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 @NgModule({
   declarations: [
     NewGameComponent,
@@ -65,6 +66,7 @@ import {MaxLengthPipe} from "../../max-length.pipe";
     MatPaginatorModule,
     MatSortModule,
     DragDropModule,
+    MatProgressBarModule,
   ],
 })
 export class AdminPageModule { }

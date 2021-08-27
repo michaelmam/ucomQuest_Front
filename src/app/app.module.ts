@@ -12,10 +12,14 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
+import { LeaderBoardComponent } from './pages/leader-board/leader-board.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatTableModule} from "@angular/material/table";
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    LeaderBoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatTableModule,
   ],
   providers: [
     {

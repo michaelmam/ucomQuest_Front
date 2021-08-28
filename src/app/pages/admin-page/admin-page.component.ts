@@ -22,7 +22,10 @@ export class AdminPageComponent implements OnInit {
     // @ts-ignore
     if( this.map[17] && this.map[191]) {
       console.log('Keypress ctrl + /');
-      this.dialog.open(ModalComponent);
+      this.openModal()
     }
+  }
+  openModal() {
+    this.dialog.open(ModalComponent);
   }
 }

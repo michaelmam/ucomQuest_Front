@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.auth.getToken() && this.router.navigateByUrl('/admin')
   }
   onSubmit() {
     this.auth.login(this.form.value).subscribe(data => {
@@ -25,8 +26,5 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/admin')
       }
     })
-    // this.form.reset({
-    //   onlySelf: true
-    // })
   }
 }

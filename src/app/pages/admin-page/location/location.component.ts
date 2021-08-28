@@ -23,7 +23,6 @@ export class LocationComponent implements OnInit {
     // 'add Game',
     'name',
     'startDescription',
-    'location in map',
     'finishPoint',
     'finishTime',
     'actions'

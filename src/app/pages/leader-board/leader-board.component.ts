@@ -33,11 +33,6 @@ export const fadeOut =
     ])),
     transition('* => void', [animate("5s ease")])
   ]);
-
-export enum KEY_CODE {
-  RIGHT_ARROW = 39,
-  LEFT_ARROW = 37
-}
 @Component({
   selector: 'app-leader-board',
   templateUrl: './leader-board.component.html',
@@ -47,8 +42,9 @@ export enum KEY_CODE {
 export class LeaderBoardComponent implements OnInit {
   displayedColumns: string[] = [
     'teamName',
-    'allPoint',
+    'locationName',
     'locationPoint',
+    'total'
   ];
   leaderboardData: {}[] = []
   map = {};
@@ -74,8 +70,8 @@ export class LeaderBoardComponent implements OnInit {
     }, 2 * 1000)
   }
   getData() {
-    this.leaderboardService.getLeaderBoardData().subscribe((data: {}[]) => {
-      this.leaderboardData = data
+    this.leaderboardService.getLeaderBoardData().subscribe(data => {
+      this.leaderboardData = data;
       this.dataSource.data = this.leaderboardData;
     })
   }

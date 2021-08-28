@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {LeaderBoardService} from "../../shared/service/leader-board.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {trigger, sequence, state, animate, transition, style, query, stagger, animateChild} from '@angular/animations';
+import { Router } from '@angular/router';
 
 export const rowsAnimation =
   trigger('rowsAnimation', [
@@ -33,7 +34,10 @@ export const fadeOut =
     transition('* => void', [animate("5s ease")])
   ]);
 
-
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37
+}
 @Component({
   selector: 'app-leader-board',
   templateUrl: './leader-board.component.html',
@@ -47,10 +51,22 @@ export class LeaderBoardComponent implements OnInit {
     'locationPoint',
   ];
   leaderboardData: {}[] = []
+  map = {};
   dataSource = new MatTableDataSource(this.leaderboardData);
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  constructor(private leaderboardService: LeaderBoardService) { }
-
+  constructor(private leaderboardService: LeaderBoardService,
+              private router: Router) { }
+  @HostListener('document:keyup', ['$event'])
+  @HostListener('document:keydown', ['$event'])
+  keUp(e: { keyCode: string | number; type: string; }) {
+    // @ts-ignore
+    this.map[e.keyCode] = e.type == 'keydown';
+    // @ts-ignore
+    if( this.map[17] && this.map[16] && this.map[76]) {
+      console.log('Keypress ctrl + shift + l');
+      this.router.navigateByUrl('/login')
+    }
+  }
   ngOnInit(): void {
     this.getData()
     setInterval(() => {

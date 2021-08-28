@@ -29,6 +29,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MaxLengthPipe} from "../../max-length.pipe";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { ModalComponent } from './modal/modal.component';
 @NgModule({
   declarations: [
     NewGameComponent,
@@ -42,7 +43,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     UserDialogComponent,
     NewUserComponent,
     FilesComponent,
-    MaxLengthPipe
+    MaxLengthPipe,
+    ModalComponent
   ],
   exports: [
     NewGameComponent,

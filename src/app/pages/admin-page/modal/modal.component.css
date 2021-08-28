@@ -1,0 +1,31 @@
+.panel {
+  text-align: center;
+  width: 400px;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.command {
+  color: blue;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.replaceText {
+  color: dodgerblue;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 4px;
+  border-radius: 33px;
+  background-color: #f3f3f3;
+}
+
+.admin {
+  color: darkred;
+}
+.player {
+  color: orange;
+}

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // serverUrl: 'http://164.90.152.154/',
-  serverUrl: 'http://localhost:4000/'
+  serverUrl: 'http://164.90.152.154/',
+  // serverUrl: 'http://localhost:4000/'
 };
 
 /*

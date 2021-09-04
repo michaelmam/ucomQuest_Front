@@ -30,6 +30,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MaxLengthPipe} from "../../max-length.pipe";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { ModalComponent } from './modal/modal.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @NgModule({
   declarations: [
     NewGameComponent,
@@ -69,6 +70,7 @@ import { ModalComponent } from './modal/modal.component';
     MatSortModule,
     DragDropModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class AdminPageModule { }

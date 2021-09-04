@@ -10,6 +10,13 @@ button {
   width: 90%;
   padding: 5px;
 }
+.spinner {
+  margin: auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
 
 tr.example-detail-row {
   height: 0;

@@ -50,6 +50,7 @@ const displayedColumns: string[] = [
   ],
 })
 export class GameComponent implements OnInit, AfterViewInit {
+  loading = false;
   displayedColumns = displayedColumns
   editGame: GameProps = {} as GameProps;
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -97,6 +98,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   addGame(game: GameProps) {
+    this.loading = true;
     if (this.editing) {
       this.gameService.editGame(game).subscribe(data => {
         if (data) {
@@ -106,6 +108,7 @@ export class GameComponent implements OnInit, AfterViewInit {
             duration: 1000,
           })
         }
+        this.loading = false;
       })
     } else {
       this.gameService.newGame(game).subscribe(data => {
@@ -116,6 +119,7 @@ export class GameComponent implements OnInit, AfterViewInit {
             duration: 1000,
           })
         }
+        this.loading = false;
       })
     }
   }

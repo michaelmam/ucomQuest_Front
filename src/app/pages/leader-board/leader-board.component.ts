@@ -1,8 +1,8 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {LeaderBoardService} from "../../shared/service/leader-board.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {trigger, sequence, state, animate, transition, style, query, stagger, animateChild} from '@angular/animations';
-import { Router } from '@angular/router';
+import {animate, sequence, state, style, transition, trigger} from '@angular/animations';
+import {Router} from '@angular/router';
 
 export const rowsAnimation =
   trigger('rowsAnimation', [
@@ -40,10 +40,10 @@ export const fadeOut =
   animations: [rowsAnimation, mm, fadeOut],
 })
 export class LeaderBoardComponent implements OnInit {
+  letters = '0123456789ABCDEF';
   displayedColumns: string[] = [
     'teamName',
     'locationName',
-    'locationPoint',
     'total'
   ];
   leaderboardData: {}[] = []
@@ -65,15 +65,28 @@ export class LeaderBoardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getData()
-    setInterval(() => {
-      this.getData()
-    }, 2 * 1000)
+    // setInterval(() => {
+    //   this.getData()
+    // }, 2 * 1000)
   }
   getData() {
     this.leaderboardService.getLeaderBoardData().subscribe(data => {
       this.leaderboardData = data;
       this.dataSource.data = this.leaderboardData;
+      console.log(data);
     })
   }
 
+  setStyle(row: any, index: number) {
+    let percentFill = row.percent * row.total
+    percentFill = percentFill < 10 ? 10 : percentFill
+    let randomColor = '#';
+    for (let i = 0; i < 6; i++) {
+      randomColor += this.letters[Math.floor(Math.random() * 16)];
+    }
+    console.log('randomColor', randomColor);
+    return {
+      'background': `linear-gradient(45deg, rgba(${(40 - percentFill) * 5 + index * 10}, ${percentFill + 175 - index * 3}, ${255 - percentFill * 5 * (index + 1)}, 0.7) ${percentFill}%, rgb(255, 255, 255) ${percentFill}%, rgba(255,255,255,1) 100%)`
+    };
+  }
 }

@@ -34,7 +34,7 @@ const displayedColumns: string[] = [
   'maxPlayerCount',
   'gamePlayTime',
   'locationName',
-  'fileName',
+  'file',
   'actions'
 ];
 @Component({
@@ -169,5 +169,14 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   openLocation(location: LocationProps) {
     location.location && this.locationService.openLocationInMap(location.location)
+  }
+
+  openFile(fileName: string) {
+    this.dialog.open(GameDialogComponent, {
+      data: {
+        file: true,
+        fileName
+      }
+    });
   }
 }

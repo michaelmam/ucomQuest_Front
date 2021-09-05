@@ -12,6 +12,9 @@ export class GameService {
   newGame(game: GameProps) {
     return this.apiService.postFile('game', game)
   }
+  getGameFile(fileName: string) {
+    return this.apiService.getByParam('file/fileData', fileName)
+  }
   editGame(game: GameProps) {
     return this.apiService.putOnlyFile('game', game)
   }

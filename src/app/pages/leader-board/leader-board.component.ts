@@ -65,9 +65,9 @@ export class LeaderBoardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getData()
-    // setInterval(() => {
-    //   this.getData()
-    // }, 2 * 1000)
+    setInterval(() => {
+      this.getData()
+    }, 5 * 1000)
   }
   getData() {
     this.leaderboardService.getLeaderBoardData().subscribe(data => {

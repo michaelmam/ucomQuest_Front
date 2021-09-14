@@ -84,7 +84,6 @@ export class LeaderBoardComponent implements OnInit {
     for (let i = 0; i < 6; i++) {
       randomColor += this.letters[Math.floor(Math.random() * 16)];
     }
-    console.log('randomColor', randomColor);
     return {
       'background': `linear-gradient(45deg, rgba(${(40 - percentFill) * 5 + index * 10}, ${percentFill + 175 - index * 3}, ${255 - percentFill * 5 * (index + 1)}, 0.7) ${percentFill}%, rgb(255, 255, 255) ${percentFill}%, rgba(255,255,255,1) 100%)`
     };

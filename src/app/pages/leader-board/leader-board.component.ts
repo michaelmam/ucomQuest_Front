@@ -40,7 +40,7 @@ export const fadeOut =
   animations: [rowsAnimation, mm, fadeOut],
 })
 export class LeaderBoardComponent implements OnInit {
-  letters = '0123456789ABCDEF';
+  // letters = '0123456789ABCDEF';
   displayedColumns: string[] = [
     'Թիմի անուոնը',
     'Գտնվելու վայրը',
@@ -65,9 +65,9 @@ export class LeaderBoardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getData()
-    // setInterval(() => {
-    //   this.getData()
-    // }, 5 * 1000)
+    setInterval(() => {
+      this.getData()
+    }, 5 * 1000)
   }
   getData() {
     this.leaderboardService.getLeaderBoardData().subscribe(data => {
@@ -79,7 +79,6 @@ export class LeaderBoardComponent implements OnInit {
   setStyle(row: any, index: number) {
     let percentFill = row.percent * row.total
     percentFill = percentFill < 10 ? 10 : percentFill
-    console.log(percentFill);
     // let randomColor = '#';
     // for (let i = 0; i < 6; i++) {
     //   randomColor += this.letters[Math.floor(Math.random() * 16)];

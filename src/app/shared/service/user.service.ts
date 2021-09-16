@@ -25,4 +25,7 @@ export class UserService {
   removeUser(id: string) {
     return this.apiService.delete('user', id)
   }
+  removeUserInfo(id: string) {
+    return this.apiService.put('user/info', id)
+  }
 }

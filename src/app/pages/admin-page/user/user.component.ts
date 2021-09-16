@@ -33,7 +33,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     // 'index',
     'code',
     'verificationCode',
-    'teamName',
+    'team Name',
     'role',
     'admin',
     'playStatus',
@@ -90,45 +90,48 @@ export class UserComponent implements OnInit, AfterViewInit {
 
 
   addUser(user: UserProps) {
-   if(this.editing) {
-     this.userService.updateUser({...this.editUserData, ...user}).subscribe(data => {
-       if (data && !data.error) {
-         this.usersData.unshift({...this.editUserData, ...user})
-         this.dataSource = new MatTableDataSource(this.usersData);
-         this.snackBar.open(`updated ${this.editUserData.code}`, 'ok', {
-           duration: 1000,
-         })
-         this.editUserData = {} as UserProps;
-         this.editing = false;
-       }
-       if (data.error) {
-         this.snackBar.open(data.error, 'ok', {
-           duration: 1000,
-         })
-       }
-     })
-   } else {
-     this.userService.newUser(user).subscribe(data => {
-       if (data && !data.error) {
-         this.usersData.unshift(data)
-         this.dataSource = new MatTableDataSource(this.usersData);
-         this.snackBar.open(`created ${user.code}`, 'ok', {
-           duration: 1000,
-         })
-       }
-       if (data.error) {
-         this.snackBar.open(data.error, 'ok', {
-           duration: 1000,
-         })
-       }
-     })
-   }
+    if(this.editing) {
+      this.userService.updateUser({...this.editUserData, ...user}).subscribe(data => {
+        if (data && !data.error) {
+          this.usersData.unshift({...this.editUserData, ...user})
+          this.dataSource = new MatTableDataSource(this.usersData);
+          this.snackBar.open(`updated ${this.editUserData.code}`, 'ok', {
+            duration: 1000,
+          })
+          this.editUserData = {} as UserProps;
+          this.editing = false;
+        }
+        if (data.error) {
+          this.snackBar.open(data.error, 'ok', {
+            duration: 1000,
+          })
+        }
+      })
+    } else {
+      this.userService.newUser(user).subscribe(data => {
+        if (data && !data.error) {
+          this.usersData.unshift(data)
+          this.dataSource = new MatTableDataSource(this.usersData);
+          this.snackBar.open(`created ${user.code}`, 'ok', {
+            duration: 1000,
+          })
+        }
+        if (data.error) {
+          this.snackBar.open(data.error, 'ok', {
+            duration: 1000,
+          })
+        }
+      })
+    }
   }
 
   delete(user: UserProps) {
     const dialogRef = this.dialog.open(UserDialogComponent, {
       width: '250px',
-      data: user
+      data: {
+        user,
+        type: 'delete'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -156,5 +159,27 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.editUserData = user;
     this.usersData = this.usersData.filter(({_id}) => user._id !== _id)
     this.dataSource = new MatTableDataSource(this.usersData);
+  }
+  removeUserInfo(user: UserProps) {
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      width: '250px',
+      data: {
+        user,
+        type: 'removeInfo'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.userService.removeUserInfo(user._id).subscribe(data => {
+          if(data) {
+            this.usersData = this.usersData.map((userData) => userData._id === user._id ? {...user, teamName: `UPDATING: ${user.teamName}`, id: ''} : userData);
+            this.dataSource = new MatTableDataSource(this.usersData);
+            this.snackBar.open(`${user.name} user Info removed`, 'ok', {
+              duration: 1000,
+            })
+          }
+        })
+      }
+    });
   }
 }

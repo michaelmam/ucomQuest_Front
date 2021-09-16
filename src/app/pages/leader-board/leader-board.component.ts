@@ -42,9 +42,9 @@ export const fadeOut =
 export class LeaderBoardComponent implements OnInit {
   letters = '0123456789ABCDEF';
   displayedColumns: string[] = [
-    'teamName',
-    'locationName',
-    'total'
+    'Թիմի անուոնը',
+    'Գտնվելու վայրը',
+    'Միավորները'
   ];
   leaderboardData: {}[] = []
   map = {};
@@ -65,26 +65,26 @@ export class LeaderBoardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getData()
-    setInterval(() => {
-      this.getData()
-    }, 5 * 1000)
+    // setInterval(() => {
+    //   this.getData()
+    // }, 5 * 1000)
   }
   getData() {
     this.leaderboardService.getLeaderBoardData().subscribe(data => {
       this.leaderboardData = data;
       this.dataSource.data = this.leaderboardData;
-      console.log(data);
     })
   }
 
   setStyle(row: any, index: number) {
     let percentFill = row.percent * row.total
     percentFill = percentFill < 10 ? 10 : percentFill
-    let randomColor = '#';
-    for (let i = 0; i < 6; i++) {
-      randomColor += this.letters[Math.floor(Math.random() * 16)];
-    }
-    return {
+    console.log(percentFill);
+    // let randomColor = '#';
+    // for (let i = 0; i < 6; i++) {
+    //   randomColor += this.letters[Math.floor(Math.random() * 16)];
+    // }                                          // 126, 188, 10
+    return {                                      // 40 - 77 * 5 + 0
       'background': `linear-gradient(45deg, rgba(${(40 - percentFill) * 5 + index * 10}, ${percentFill + 175 - index * 3}, ${255 - percentFill * 5 * (index + 1)}, 0.7) ${percentFill}%, rgb(255, 255, 255) ${percentFill}%, rgba(255,255,255,1) 100%)`
     };
   }

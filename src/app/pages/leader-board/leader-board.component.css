@@ -1,0 +1,7 @@
+.container {
+  background: url('../../../assets/wave-line-gray.png') #e5e5e5;
+  height: 100vh;
+}
+.leaderboardTable {
+  padding: 2% 5%;
+}

@@ -14,6 +14,9 @@
     <th mat-sort-header mat-header-cell *matHeaderCellDef> {{column}} </th>
     <td mat-cell *matCellDef="let element">
       <span *ngIf="column === 'actions'">
+        <button mat-mini-fab (click)="removeUserInfo(element)">
+          <mat-icon>highlight_off</mat-icon>
+        </button>
         <button mat-fab (click)="editFunction(element)">
           <mat-icon>edit</mat-icon>
         </button>
@@ -26,6 +29,9 @@
       </span>
       <span *ngIf="column === 'location'">
         {{element?.locationData?.name}}
+      </span>
+      <span *ngIf="column === 'team Name'">
+        {{!element?.id && element?.teamName ? 'UPDATING' : ''}} {{element?.teamName}}
       </span>
       <span *ngIf="column === 'locationSteps'">
         {{element?.playingLocationStepsNames?.join(' -> ')}}

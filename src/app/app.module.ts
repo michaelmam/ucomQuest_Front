@@ -15,6 +15,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { LeaderBoardComponent } from './pages/leader-board/leader-board.component';
 import {MatIconModule} from "@angular/material/icon";
 import {MatTableModule} from "@angular/material/table";
+import {MatSidenavModule} from "@angular/material/sidenav";
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import {MatTableModule} from "@angular/material/table";
     ReactiveFormsModule,
     MatIconModule,
     MatTableModule,
+    MatSidenavModule,
   ],
   providers: [
     {

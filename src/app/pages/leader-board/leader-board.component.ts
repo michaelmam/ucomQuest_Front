@@ -84,8 +84,8 @@ export class LeaderBoardComponent implements OnInit {
     // for (let i = 0; i < 6; i++) {
     //   randomColor += this.letters[Math.floor(Math.random() * 16)];
     // }                                          // 126, 188, 10
-    return {                                      // 40 - 77 * 5 + 0
-      'background': `linear-gradient(45deg, rgba(${(40 - percentFill) * 5 + index * 10}, ${percentFill + 175 - index * 3}, ${255 - percentFill * 5 * (index + 1)}, 0.7) ${percentFill}%, rgb(255, 255, 255) ${percentFill}%, rgba(255,255,255,1) 100%)`
+    return {                                      // 98 - 77 * 5 + 0                       77 + 175 - 0
+      'background': `linear-gradient(45deg, rgba(${(91.2 - percentFill) * 5 + index * 10}, ${percentFill + 82 - index * 3}, ${82 - percentFill + 5 * (index + 1)}, 0.8) ${percentFill}%, rgb(255, 255, 255) ${percentFill}%, rgba(255,255,255,1) 100%)`
     };
   }
 }

@@ -42,7 +42,7 @@ export const fadeOut =
 export class LeaderBoardComponent implements OnInit {
   // letters = '0123456789ABCDEF';
   displayedColumns: string[] = [
-    'Թիմի անուոնը',
+    'Թիմի անունը',
     'Գտնվելու վայրը',
     'Միավորները'
   ];

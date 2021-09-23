@@ -1,24 +1,34 @@
 <div class="container">
   <div class="leaderboardTable">
-    <table mat-table [dataSource]="dataSource" >
-      <ng-container  [matColumnDef]="column" *ngFor="let column of displayedColumns; let i = index">
-        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-        <td mat-cell *matCellDef="let element">
-        <span *ngIf="column==='Թիմի անունը'">
-        {{element.teamName}}
-        </span>
-          <span *ngIf="column==='Միավորները'">
-        {{element.total}}
-        </span>
-          <span *ngIf="column==='Գտնվելու վայրը'">
-        {{element.locationName}}
-        </span>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr [ngStyle]="setStyle(row, i)"
-          mat-row
-          *matRowDef="let row; columns: columnsToDisplay; let i = index"></tr>
+<!--    <table mat-table [dataSource]="dataSource" >-->
+<!--      <ng-container  [matColumnDef]="column" *ngFor="let column of displayedColumns; let i = index">-->
+<!--        <th mat-header-cell *matHeaderCellDef> {{column}} </th>-->
+<!--        <td mat-cell *matCellDef="let element">-->
+<!--        <span *ngIf="column==='Թիմի անունը'">-->
+<!--        {{element.teamName}}-->
+<!--        </span>-->
+<!--          <span *ngIf="column==='Միավորները'">-->
+<!--        {{element.total}}-->
+<!--        </span>-->
+<!--          <span *ngIf="column==='Գտնվելու վայրը'">-->
+<!--        {{element.locationName}}-->
+<!--        </span>-->
+<!--        </td>-->
+<!--      </ng-container>-->
+<!--      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>-->
+<!--      <tr [ngStyle]="setStyle(row, i)"-->
+<!--          mat-row-->
+<!--          *matRowDef="let row; columns: columnsToDisplay; let i = index"></tr>-->
+<!--    </table>-->
+    <table id="customers">
+      <tr>
+        <th *ngFor="let column of displayedColumns">{{column}}</th>
+      </tr>
+      <span class="tr" *ngFor="let data of leaderboardData; let i = index" [ngStyle]="setStyle(data, i)">
+        <span>{{data?.teamName}}</span>
+        <span>{{data?.locationName}}</span>
+        <span>{{data?.total}}</span>
+      </span>
     </table>
 
   </div>

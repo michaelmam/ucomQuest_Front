@@ -46,7 +46,11 @@ export class LeaderBoardComponent implements OnInit {
     'Գտնվելու վայրը',
     'Միավորները'
   ];
-  leaderboardData: {}[] = []
+  leaderboardData: {
+    teamName: string;
+    total: string;
+    locationName: string;
+  }[] = []
   map = {};
   dataSource = new MatTableDataSource(this.leaderboardData);
   columnsToDisplay: string[] = this.displayedColumns.slice();

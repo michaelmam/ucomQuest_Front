@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {UserDialogComponent} from "./user/user-dialog/user-dialog.component";
 import { ModalComponent } from './modal/modal.component';
+import {ApiService} from "../../shared/service/api.service";
 @Component({
   selector: 'app-admin-page',
   templateUrl: './admin-page.component.html',
@@ -10,7 +11,7 @@ import { ModalComponent } from './modal/modal.component';
 })
 export class AdminPageComponent implements OnInit {
   map = {}
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private apiService: ApiService) {
   }
   ngOnInit() {
   }
@@ -27,5 +28,11 @@ export class AdminPageComponent implements OnInit {
   }
   openModal() {
     this.dialog.open(ModalComponent);
+  }
+
+  getImages() {
+    this.apiService.get('file/images').subscribe(data => {
+      console.log(data);
+    })
   }
 }

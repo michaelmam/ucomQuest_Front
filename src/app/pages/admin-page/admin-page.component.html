@@ -14,12 +14,19 @@
   <li><a routerLinkActive="active"
          routerLink="/admin/file">
     <span>Files</span>
-  </a></li>
+  </a>
+  </li>
+  <li
+    class="keys"
+    (contextmenu)="getImages()"><a>
+    <span>IMAGES</span>
+  </a>
   <li
     class="keys"
     (click)="openModal()"><a>
     <span>keys</span>
-  </a></li>
+  </a>
+  </li>
 </ul>
 <div class="routing">
   <router-outlet></router-outlet>
